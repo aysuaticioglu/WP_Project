@@ -1,0 +1,28 @@
+﻿@model WP_Project.Models.UyeModel
+
+@{
+    ViewData["Title"] = "Üye Girişi ve Kayıt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+       
+                <div class="mt-3 form-group">
+
+
+
+                    <a href="@Url.Action("UyeOl", "Uye")" class="btn btn-color rounded-pill btn-block shadow-sm">Üye Ol</a>
+
+                    <a href="@Url.Action("UyeGiris", "Uye")" class="btn btn-color rounded-pill btn-block shadow-sm">Giriş Yap</a>
+
+                </div>
+                <label for="message" id="label"></label>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,48 @@
+﻿@model WP_Project.Models.LoginModel
+@{
+    ViewData["Title"] = "Login Page";
+
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
+}
+<!-- ======= Login Section ======= -->
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+
+                <div class="section-title">
+                    <h2><img src="~/img/logo1.png" height="100" width="250" /></h2>
+                    <h2>Kullanıcı Giriş</h2>
+
+                </div>
+
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                {
+                    <div class="form-group">
+
+
+                        <label for="email"><b>Kullanıcı Ad</b></label>
+                        @Html.TextBoxFor(model => model.Kullanici_Ad, new { @class = "form-control", placeholder = "Kullanıcı Adı", required = "required" })
+
+
+                        <label for="email"><b>Sifre</b></label>
+                        @Html.PasswordFor(model => model.Parola, new { @class = "form-control", placeholder = "Parola", required = "required" })
+
+
+
+
+
+
+
+                        <button type="submit" class="btn btn-color rounded-pill btn-block shadow-sm">Giriş Yap</button>
+                        <label class="text-danger">@ViewBag.ErrorMessage</label>
+
+
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section><!-- End Login Section -->

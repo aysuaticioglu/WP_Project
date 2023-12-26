@@ -1,0 +1,185 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WP_Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WP_Project.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>@ViewData["Title"] - WP_Project</title>
+    <script src="https://cdn.elinsoft.com/kar.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <script>// Bu kısmı belirtilen yerde ekleyin
+        $(document).ready(function () {
+            $('.slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000, // İstediğiniz otomatik geçiş süresini belirtin (ms cinsinden)
+                arrows: false,
+                dots: true
+            });
+        });</script>
+
+</head>
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <div class="logo me-auto">
+                <h1><a href="@Url.Action("Index", "Home")"><img src="~/img/logo1.png" height="300" width="150" /> </a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            </div>
+            <!-- Menüyü çağır -->
+            <!-- Burada Partial View'i çağırıyoruz -->
+            <nav id="navbar" class="navbar align-items-center me-auto">
+                <!-- Include the partial view to render category links -->
+                <ul>
+                    <!-- Yeni butonu tıklandığında tüm ürünleri göstermek için -->
+                    <li>
+                        <a href="@Url.Action("Icerik", "Home", new { KatID = "tum-urunler" })">
+                            <span>Tüm Ürünler</span>
+                        </a>
+                    </li>
+
+
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+
+
+
+
+        </div>
+        <div class="header-social-links d-flex align-items-center ml-auto">
+            <div class="input-group rounded">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                    <img src="~/img/326690_magnify_search_zoom_icon.png" height="20" width="20" />
+                </span>
+            </div>
+
+            <a class="nav-link" href="#">
+                <img src="~/img/1564497_basket_cart_food_grosseries_shop_icon.png" height="30" width="30" />
+            </a>
+            @if (!string.IsNullOrEmpty(TempData["UyeGirisAd"]?.ToString()))
+            {
+                <span class="nav-link">Hoş geldiniz, @TempData["UyeGirisAd"]!</span>
+            }
+            else
+            {
+                <a class="nav-link" href="@Url.Action("Index", "Uye")">
+                    <img src="~/img/1564535_customer_user_userphoto_account_person_icon.png" height="30" width="30" />
+                </a>
+
+            }
+        </div>
+    </header><!-- End Header -->
+    <!-- Burada Partial View'i çağırıyoruz -->
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-lg-12">
+     
+            @RenderBody()
+        </div>
+    </div>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>Luna</h3>
+                        <p>
+                            A108 Adam Street <br>
+                            New York, NY 535022<br>
+                            United States <br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Hakkımızda</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Index", "Home")">Anasayfa</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Hakkinda", "Home")">Hakkımızda</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Iletisim", "Home")">İletişim</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Kullanım Şartları</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Gizlilik Politikası</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Yardım</h4>
+                        <ul>
+
+
+
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Yardım</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Sıkça Sorulan Sorular</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Canlı Yardım</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Nasıl İade Edebilirim</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">İşlem Rehberi</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Sosyal Medya</h4>
+
+
+
+                        <ul class="social-icons">
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-md-flex py-4">
+
+            <div class="me-md-auto text-center text-md-start">
+                <div class="copyright">
+                    &copy; Copyright <strong><span></span></strong>. All Rights Reserved
+                </div>
+
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+    <!-- Vendor JS Files -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="path/to/slick.css" />
+    <link rel="stylesheet" type="text/css" href="path/to/slick-theme.css" />
+    <script type="text/javascript" src="path/to/slick.js"></script>
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>
+

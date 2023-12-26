@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@model List<WP_Project.Models.UrunModel>
+
+@{
+    ViewData["Title"] = "Ürün İçeriği";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="products-section">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <h2 class="section-title">Tüm Ürünler</h2>
+        </div>
+
+        <div class="row mt-4">
+            @foreach (var urun in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="@urun.Resim" class="card-img-top" alt="Product Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@urun.Urun_Ad</h5>
+                            
+                        </div>
+                        <div class="card-footer">
+                            <p>Fiyat: @urun.Fiyat.ToString("C", new CultureInfo("tr-TR"))</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

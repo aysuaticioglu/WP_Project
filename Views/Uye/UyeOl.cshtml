@@ -1,0 +1,75 @@
+﻿@model WP_Project.Models.UyeModel
+
+@{
+    ViewData["Title"] = "Login and Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>Üye Ol</h2>
+                @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.SuccessMessage
+                    </div>
+                }
+
+                @using (Html.BeginForm("UyeOl", "Uye", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label for="kul_ad"><b>Kullanıcı Adı</b></label>
+                        @Html.TextBoxFor(model => model.Kul_Ad, new { @class = "form-control", placeholder = "Kullanıcı Adı", required = "required" })
+
+                        <label for="ad"><b>Ad</b></label>
+                        @Html.TextBoxFor(model => model.Ad, new { @class = "form-control", placeholder = "Ad", required = "required" })
+
+                        <label for="soyad"><b>Soyad</b></label>
+                        @Html.TextBoxFor(model => model.Soyad, new { @class = "form-control", placeholder = "Soyad", required = "required" })
+
+
+                        <label for="email"><b>E-posta</b></label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", required = "required", value = TempData["UyeGirisEmail"] })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                        <label for="sifre"><b>Sifre</b></label>
+                        @Html.PasswordFor(model => model.Sifre, new { @class = "form-control", placeholder = "Sifre", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+
+
+                        <label for="cinsiyet"><b>Cinsiyet</b></label>
+                        @Html.DropDownListFor(model => model.Cinsiyet, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Erkek", Value = "1" },
+                            new SelectListItem { Text = "Kadın", Value = "2" },
+
+                        }, "Value", "Text"), new { @class = "form-control", required = "required" })
+
+                        <button type="submit" class="btn btn-color rounded-pill btn-block shadow-sm">Üye Ol</button>
+                    </div>
+                    <label for="message" id="label"></label>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

@@ -1,0 +1,42 @@
+﻿@model WP_Project.Models.HakkindaModel
+
+@{
+    ViewData["Title"] = "Hakkımızda Ekle/Düzenle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+
+
+<form asp-action="Index" method="post">
+ 
+    <section id="contact" class="contact section-bg">
+        <div class="container">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-9">
+                    <h2>Hakkımızda Ekle/Düzenle</h2>
+                    <div class="form-group">
+                        <label for="Hakkinda_Baslik">Başlık</label>
+                        <input type="text" id="Hakkinda_Baslik" name="Hakkinda_Baslik" class="form-control" value="@Model?.Hakkinda_Baslik" required />
+                        <span asp-validation-for="Hakkinda_Baslik" class="text-danger"></span>
+                        <label for="Hakkinda_Icerik">İçerik</label>
+                        <textarea id="Hakkinda_Icerik" rows="20" name="Hakkinda_Icerik" class="form-control" required>@Model?.Hakkinda_Icerik</textarea>
+                        <span asp-validation-for="Hakkinda_Icerik" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ekle/Düzenle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+</form>

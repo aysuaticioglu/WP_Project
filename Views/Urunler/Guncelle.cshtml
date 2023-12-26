@@ -1,0 +1,131 @@
+﻿@model WP_Project.Models.UrunModel
+
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<script>$(document).ready(function () {
+        AltKategorileriGuncelle();
+    });
+
+    function AltKategorileriGuncelle() {
+        var selectedKatID = $('#KatID').val();
+        $.ajax({
+            type: 'GET',
+            url: '/Urunler/GetAltKategoriler',
+            data: { KatID: selectedKatID },
+            success: function (altKategoriler) {
+                var altKategoriDropdown = $('#AltKategoriDropdown');
+                var selectedAltKatID = altKategoriDropdown.val();
+                altKategoriDropdown.empty();
+                altKategoriDropdown.append($('<option>').val('').text('-- Seçiniz --'));
+                $.each(altKategoriler, function (i, altKategori) {
+                    altKategoriDropdown.append($('<option>').val(altKategori.altKatID).text(altKategori.altKat_Ad));
+                });
+                altKategoriDropdown.val(selectedAltKatID);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }</script>
+
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>Ürün Güncelle</h2>
+                @using (Html.BeginForm("Guncelle", "Urunler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input asp-for="UrunID" type="hidden" />
+
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <input asp-for="Urun_Ad" class="form-control" required />
+                    </div>
+
+                    <label>Ana Kategori</label>
+                    <select asp-for="KatID" class="form-control" id="KatID" onchange="AltKategorileriGuncelle()">
+                        <option value="">-- Seçiniz --</option>
+                        @if (ViewBag.AnaKategoriler != null)
+                        {
+                            foreach (var anaKategori in ViewBag.AnaKategoriler)
+                            {
+                                <option value="@anaKategori.Value">@anaKategori.Text</option>
+                            }
+                        }
+                    </select>
+
+                    <label>Alt Kategori</label>
+                    <select asp-for="AltKatID" class="form-control" id="AltKategoriDropdown">
+                        <option value="">-- Seçiniz --</option>
+                        @if (ViewBag.AltKategoriler != null)
+                        {
+                            foreach (var altKategori in ViewBag.AltKategoriler)
+                            {
+                                <option value="@altKategori.Value">@altKategori.Text</option>
+                            }
+                        }
+                    </select>
+
+                    <div class="form-group">
+                        <label>Fiyat</label>
+                        <input asp-for="Fiyat" class="form-control" step="0.01" min="0" placeholder="0.00" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Renk Kodu</label>
+                        <input asp-for="Renk_Kod" type="color" class="form-control"  />
+               
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stok Adeti</label>
+                        <input asp-for="Stok_Adet" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Resim Yükle</label>
+                        <input asp-for="Resim" type="file" class="form-control-file" />
+
+                        @if (!string.IsNullOrEmpty(Model.Resim))
+                        {
+                            <img src="@Model.Resim" alt="Ürün Resmi" style="max-width: 100px; max-height: 100px;" />
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detay</label>
+                        <textarea asp-for="Detay" class="form-control"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}

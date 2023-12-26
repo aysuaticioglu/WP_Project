@@ -1,0 +1,41 @@
+﻿@model WP_Project.Models.AnaKategoriModel
+
+@{
+    ViewData["Title"] = "Ekle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+
+            <div class="col-lg-9">
+                <h2>Ana Kategori Ekle</h2>
+                @using (Html.BeginForm("AnaKategoriEkle", "Kategori", FormMethod.Post))
+                {
+                    
+                    <div class="form-group">
+                        <label>Ana Kategori</label>
+                        <input asp-for="Kat_Ad" class="form-control" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                }
+            </div>
+                </div>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

@@ -1,0 +1,47 @@
+﻿@model WP_Project.Models.UyeModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+
+                <h2>Üye Giriş</h2>
+                @using (Html.BeginForm("UyeGiris", "Uye", FormMethod.Post))
+                {
+                    <div class="form-group">
+
+                        <label for="email"><b>E-posta</b></label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", required = "required", value = TempData["UyeGirisEmail"] ?? ViewBag.UyeGirisEmail })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <label for="sifre"><b>Şifre</b></label>
+                        @Html.PasswordFor(model => model.Sifre, new { @class = "form-control", placeholder = "Şifre", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+
+                        <button type="submit" class="btn btn-color rounded-pill btn-block shadow-sm">Giriş Yap</button>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</section>
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

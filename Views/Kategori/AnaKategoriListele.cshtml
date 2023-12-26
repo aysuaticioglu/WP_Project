@@ -1,0 +1,47 @@
+﻿@model List<AnaKategoriModel>
+
+@{
+    ViewData["Title"] = "Ekle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+<script>function confirmDelete(KatID) {
+    if (confirm('Bu ürünü silmek istediğinizden emin misiniz?')) {
+        window.location.href = '/Kategori/AnaKategoriListele/' + KatID;
+        }
+    }</script>
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+
+            <div class="col-lg-9">
+                <h2>Ana Kategoriler</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ana Kategori ID</th>
+                            <th>Ana Kategori Adı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var anaKategori in Model)
+                        {
+                            <tr>
+                                <td>@anaKategori.KatID</td>
+                                <td>@anaKategori.Kat_Ad</td>
+                                <td>
+                                    <!-- Ana kategoriye ait alt kategorileri güncelleme sayfasına yönlendir -->
+                                    <a asp-action="AnaKategoriGuncelle" asp-route-id="@anaKategori.KatID" class="btn btn-primary">Güncelle</a>
+
+                                    <!-- Ana kategoriye ait alt kategoriyi silme işlemi -->
+                                                          
+                                    <a asp-action="SilAnaKategori" asp-route-id="@anaKategori.KatID" class="btn btn-danger" onclick="confirmDelete(@anaKategori.KatID)">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

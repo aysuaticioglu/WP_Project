@@ -1,0 +1,87 @@
+﻿@model List<WP_Project.Models.UrunModel>
+
+@{
+    ViewData["Title"] = "Ürün Listesi";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+<script>function confirmDelete(urunID) {
+    if (confirm('Bu ürünü silmek istediğinizden emin misiniz?')) {
+        window.location.href = '/Urunler/Listele/' + urunID;
+    }
+}</script>
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>Ürün Listesi</h2>
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ürün Adı</th>
+                            <th>Fiyat</th>
+                            <th>Renk Kodu</th>
+                            <th>Ana Kategori</th>
+                            <th>Alt Kategori</th>
+                            <th>Detay</th>
+                            <th>Resim</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (var urun in Model)
+                            {
+                                <tr>
+                                    <td>@urun.Urun_Ad</td>
+                                    <td>@urun.Fiyat</td>
+                                    <td>@urun.Renk_Kod</td>
+                                    <td>
+                                        @if (urun.AnaKategoriModel != null)
+                                        {
+                                            @urun.AnaKategoriModel.Kat_Ad;
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @if (urun.AltKategoriModel != null)
+                                        {
+                                            @urun.AltKategoriModel.AltKat_Ad;
+                                        }
+
+                                    </td>
+                                    <td>@urun.Detay</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(urun.Resim))
+                                        {
+                                            <img src="@urun.Resim" alt="Ürün Resmi" style="max-width: 100px; max-height: 100px;" />
+                                        }
+                                    </td>
+                                    <td>
+                                        <!-- Güncelleme Butonu -->
+                                        <a asp-action="Guncelle" asp-route-id="@urun.UrunID" class="btn btn-primary">Güncelle</a>
+                                    </td>
+                                    <td>
+                                        <!-- Silme Butonu -->
+                                        <a asp-action="Sil" asp-route-id="@urun.UrunID" class="btn btn-danger" onclick="confirmDelete(@urun.UrunID)">Sil</a>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

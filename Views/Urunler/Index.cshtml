@@ -1,0 +1,115 @@
+﻿@model WP_Project.Models.UrunModel
+
+@{
+    ViewData["Title"] = "Ürün Ekle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<!-- jQuery kütüphanesini ekleyin (örneğin, CDN üzerinden) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Sayfa yüklendiğinde çalışacak olan JavaScript kodu -->
+<script>$(document).ready(function () {
+        // #KatID öğesinin değeri değiştiğinde tetiklenecek fonksiyon
+        $('#KatID').change(function () {
+            // Seçilen ana kategori ID'sini al
+            var selectedKatID = $(this).val();
+
+            // AJAX isteği gönder
+            $.ajax({
+                type: 'GET',
+                url: '/Urunler/GetAltKategoriler',
+                data: { KatID: selectedKatID },
+                success: function (altKategoriler) {
+                    // Başarılı olduğunda #AltKategoriDropdown öğesini güncelle
+                    $('#AltKategoriDropdown').empty().append($('<option>').val('').text('-- Seçiniz --'));
+                    $.each(altKategoriler, function (i, altKategori) {
+                        $('#AltKategoriDropdown').append($('<option>').val(altKategori.altKatID).text(altKategori.altKat_Ad));
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });</script>
+
+
+
+
+<section class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+
+            <div class="col-lg-9">
+                <h2>Ürün Ekle</h2>
+                @using (Html.BeginForm("Index", "Urunler", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <input type="text" name="Urun_Ad" class="form-control" required />
+                    </div>
+
+                    <label>Ana Kategori</label>
+                    <select name="KatID" class="form-control" id="KatID">
+
+                        <option value="">-- Seçiniz --</option>
+                        @if (ViewBag.AnaKategoriler != null)
+                        {
+                            foreach (var anaKategori in ViewBag.AnaKategoriler)
+                            {
+                                <option value="@anaKategori?.Value">@anaKategori?.Text</option>
+                            }
+                        }
+                    </select>
+
+                    <label>Alt Kategori</label>
+                    <select name="AltKatID" class="form-control" id="AltKategoriDropdown">
+                        <option value="">-- Seçiniz --</option>
+                    </select>
+
+                    <div class="form-group">
+                        <label>Fiyat</label>
+                        <input type="number" name="Fiyat" class="form-control" step="0.01" min="0" placeholder="0.00" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Renk Kodu</label>
+                        <input type="color" name="Renk_Kod" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stok Adeti</label>
+                        <input type="text" name="Stok_Adet" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Resim Yükle</label>
+                        <input type="file" name="Resim" class="form-control-file" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detay</label>
+                        <textarea name="Detay" class="form-control"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Ürün Ekle</button>
+                }
+            </div>
+           
+        </div>
+    </div>
+</section>
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

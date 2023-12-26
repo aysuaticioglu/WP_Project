@@ -1,0 +1,48 @@
+﻿
+
+@{
+    ViewData["Title"] = "Alt Kategoriler";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>Alt Kategoriler</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Kategori ID</th>
+                            <th>Alt Kategori Adı</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var altKategori in Model)
+                        {
+                            <tr>
+                                <td>@altKategori.KatID</td>
+                                <td>@altKategori.AltKat_Ad</td>
+                                <td>
+                                    <!-- Ana kategoriye ait alt kategorileri güncelleme sayfasına yönlendir -->
+                                    <a asp-action="AltKategoriGuncelle" asp-route-id="@altKategori.AltKatID" class="btn btn-primary">Güncelle</a>
+
+                                    <!-- Ana kategoriye ait alt kategoriyi silme işlemi -->
+                                    <a asp-action="SilAltKategori" asp-route-id="@altKategori.AltKatID" class="btn btn-danger">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}

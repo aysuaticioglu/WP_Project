@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WP_Project.Models.IletisimModel>
+
+@{
+    ViewData["Title"] = "İletişim Kayıtları";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>İletişim Kayıtları</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Konu</th>
+                            <th>Mesaj</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IletisimID</td>
+                                <td>@item.Ad</td>
+                                <td>@item.Soyad</td>
+                                <td>@item.Konu</td>
+                                <td>@item.Mesaj</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,52 @@
+﻿@model WP_Project.Models.IletisimModel
+
+@{
+    ViewData["Title"] = "İletişim Formu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="contact section-bg">
+    <div class="container">
+        <div class="col-md-12 mb-5">
+            <div class="row mt-5 justify-content-center">
+                <h2>İletişim</h2>
+            </div>
+
+          
+                <form method="post">
+                    <div class="form-group">
+                        <label for="Ad">Ad</label>
+                        <input type="text" class="form-control" id="Ad" name="Ad">
+                        <span asp-validation-for="Ad" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Soyad">Soyad</label>
+                        <input type="text" class="form-control" id="Soyad" name="Soyad">
+                        <span asp-validation-for="Soyad" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Konu">Konu</label>
+                        <input type="text" class="form-control" id="Konu" name="Konu">
+                        <span asp-validation-for="Konu" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Mesaj">Mesaj</label>
+                        <textarea class="form-control" id="Mesaj" name="Mesaj" rows="4"></textarea>
+                        <span asp-validation-for="Mesaj" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+          
+        </div>
+        </div>
+</section>
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }

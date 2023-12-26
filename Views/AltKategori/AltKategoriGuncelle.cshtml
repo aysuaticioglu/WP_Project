@@ -1,0 +1,52 @@
+﻿@model WP_Project.Models.AltKategoriModel
+
+@{
+    ViewData["Title"] = "Alt Kategori Ekle";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+
+            <div class="col-lg-9">
+                <h2>Alt Kategori Güncelle</h2>
+                @using (Html.BeginForm("AltKategoriEkle", "AltKategori", FormMethod.Post))
+                {
+
+                    <div class="form-group">
+                        <label>Alt Kategori</label>
+                        <input asp-for="AltKat_Ad" class="form-control" required />
+                    </div>
+                    <label>Ana Kategori</label>
+                    <select asp-for="KatID" class="form-control" id="KatID" >
+                        <option value="">-- Seçiniz --</option>
+                        @if (ViewBag.AnaKategoriler != null)
+                        {
+                            foreach (var anaKategori in ViewBag.AnaKategoriler)
+                            {
+                                <option value="@anaKategori.Value">@anaKategori.Text</option>
+                            }
+                        }
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}

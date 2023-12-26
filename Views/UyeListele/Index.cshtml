@@ -1,0 +1,44 @@
+﻿@model List<WP_Project.Models.UyeModel>
+
+@{
+    ViewData["Title"] = "Üye Listele";
+    Layout = "~/Views/Shared/_LayoutBack.cshtml";
+}
+
+<section id="contact" class="contact section-bg">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-9">
+                <h2>Üye Listesi</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Email</th>
+                            <th>Cinsiyet</th>
+                            <th>Üye Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var uye in Model)
+                        {
+                            <tr>
+                                <td>@uye.UyeID</td>
+                                <td>@uye.Kul_Ad</td>
+                                <td>@uye.Ad</td>
+                                <td>@uye.Soyad</td>
+                                <td>@uye.Email</td>
+                                <td>@(uye.Cinsiyet == 1 ? "Erkek" : "Kadın")</td>
+                                <td>@(uye.Uye_Tarihi.HasValue ? uye.Uye_Tarihi.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
